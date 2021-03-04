@@ -1,0 +1,358 @@
+---
+title: "Abhinav Malasi's resume"
+author: Abhinav Malasi
+date: "`r Sys.Date()`"
+output:
+  pagedown::html_resume:
+    css: ['css/custom_resume.css', 'css/styles.css', 'resume']
+      #-all.css
+      #-resume.css
+    # set it to true for a self-contained HTML page but it'll take longer to render
+    self_contained: true
+# uncomment this line to produce HTML and PDF in RStudio:
+#knit: pagedown::chrome_print
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  results='asis', 
+  echo = FALSE
+)
+library(tidyverse)
+library(glue)
+
+# ======================================================================
+# These variables determine how the the data is loaded and how the exports are
+# done.
+
+# Is data stored in google sheets? If no data will be gather from the csvs/
+# folder in project
+using_googlesheets <- FALSE
+
+# Just the copied URL from the sheet
+positions_sheet_loc <- "https://docs.google.com/spreadsheets/d/14MQICF2F8-vf8CKPF1m4lyGKO6_thG-4aSwat1e2TWc"
+
+# Is this sheet available for anyone to read? If you're using a private sheet
+# set this to false and go to gather_data.R and run the data loading manually
+# once to cache authentication
+sheet_is_publicly_readable <- TRUE
+
+# Is the goal of this knit to build a document that is exported to PDF? If so
+# set this to true to have links turned into footnotes at the end of the
+# document
+PDF_EXPORT <- FALSE
+
+
+# A global (gasp) variable that holds all the links that were inserted for
+# placement at the end
+links <- c()
+
+# ======================================================================
+# Now we source two external scripts. One contains functions for building the
+# text output and the other loads up our data from either googlesheets or csvs
+
+# Functions for building sections from CSV data
+source('parsing_functions.R') 
+
+# Load data for CV/Resume
+source('gather_data.R')
+
+# Now we just need to filter down the position data to include less verbose
+# categories and only the entries we have designated for the resume
+position_data <- position_data %>% 
+  filter(in_resume) %>% 
+  mutate(
+    # Build some custom sections by collapsing others
+    section = case_when(
+      section %in% c('research_positions', 'industry_positions') ~ 'positions', 
+      section %in% c('data_science_writings', 'by_me_press') ~ 'writings',
+      TRUE ~ section
+    )
+  ) 
+```
+
+
+Aside
+================================================================================
+
+
+![Abhinav Malasi](C:\Users\amalasi\Documents\R\CV/self.JPG)
+
+
+Contact Info {#contact}
+--------------------------------------------------------------------------------
+
+- <i class="fa fa-envelope"></i> abhinav.malasi@gmail.com
+- <i class="fa fa-linkedin"></i> [linkedin.com/abhinav-malasi](https://www.linkedin.com/in/abhinav-malasi/)
+- <i class="fa fa-github"></i> [github.com/amalasi2418](https://github.com/amalasi2418)
+- <i class="fa fa-medium"></i> [abhinav-malasi.medium.com/](https://abhinav-malasi.medium.com/)
+- <i class="fa fa-twitter"></i> [twitter.com/malasi_abhinav](https://twitter.com/malasi_abhinav)
+- <i class="fa fa-phone"></i> +352 691 207 783
+
+
+Language Skills {#skills}
+--------------------------------------------------------------------------------
+
+```{r}
+build_skill_bars(skills)
+```
+
+Other Relevant Skills {#other_skills}
+--------------------------------------------------------------------------------
+
+- Data visualization
+
+- Mathematical modeling
+
+- Statistical analysis
+
+- Process improvement
+
+
+Disclaimer {#disclaimer}
+--------------------------------------------------------------------------------
+
+Resume made with [**pagedown**](https://github.com/rstudio/pagedown).
+
+Source code: [github.com/amalasi2418/cv](https://github.com/amalasi2418/cv).
+
+Last updated on `r Sys.Date()`.
+
+
+
+Main
+================================================================================
+
+Abhinav Malasi, Ph.D., MBA {#title}
+--------------------------------------------------------------------------------
+
+### Based in Luxembourg and will be relocating to Belgium in May 2021.
+
+I am a positive thinker, a creative problem solver with an analytical mindset having 8+ years of experience in data analytics, resource management, and training people. Currently transitioning career from academia to business by completing MBA. During my internships, I gained experience in process improvement, prioritizing in fast paced environment, and stakeholder management. I am currently seeking opportunity to utilize my existing skills in a new role where I can develop and deliver value. 
+
+Professional Experience {data-icon=suitcase}
+--------------------------------------------------------------------------------
+
+### Contributing writer, Freelance
+
+Towards Data Science, Medium Publication
+
+Remote
+
+02/2021
+
+::: concise
+- Creating content on data visualization, data analytics, and machine learning. 
+- Creating efficient workflows in R.
+- Providing code snippets for fast implementations.
+:::
+
+### Business Analyst, Intern
+
+Goodyear
+
+Dudelange, Luxembourg
+
+02/2020 - 06/2020
+
+::: concise
+- Identified 44 processes for digitalization, resulted in 3 implementations and 2 pilots. 
+- Developed, implemented, and trained 2-level password protected quality checklist in Excel-VBA with 5x efficiency.
+:::
+
+### Business Deployment, Intern
+
+ArcelorMittal
+
+Luxembourg City, Luxembourg
+
+02/2019 - 01/2020
+
+::: concise
+- REACH	database created for 500+ raw materials supplied by 200+ suppliers. 
+- Developed the REACH compliance check pipeline and an operational manual for the business.
+- Trained the back office, contract management, and buying teams on using the REACH operational manual.
+:::
+
+
+
+Research Experience {data-icon=laptop}
+--------------------------------------------------------------------------------
+
+### R Projects
+
+Self-learning
+
+Luxembourg
+
+2020 - Present
+
+- Develop sales and marketing strategy for Online retail store data of a UK company (data source: UCI data repository).
+- Automate the bank loan approval process (data source: Kaggle).
+- Coded Neural Network from scratch to create digit recognizer on MNIST dataset.
+
+### Graduate Research Assistant
+
+University of Tennessee Knoxville
+
+Knoxville, USA
+
+2010 - 2015
+
+- Good organization skills got 11 projects completed, with 16 deliverables (reports and presentations).
+- Developed and improved forecasting model in MATLAB to capture material's optical properties with >85% accuracy. 
+- Advanced analytical skills with attention to details helped secure $ 300k in ARO funds for Ferroplasmon research.
+
+### Research Assistant
+
+Indian Institute of Technology Kanpur
+
+Kanpur, India
+
+2008 - 2010
+
+- Fabricated and calibrated an adhesion testing device for an industrial project.
+- Investigated the underwater adhesion properties of various viscoelastic polymer.
+
+### Graduate Assistant
+
+Indian Institute of Technology Kanpur
+
+Kanpur, India
+
+2007 - 2008
+
+- Simulated and optimized the industrial production of Nylon 66 using genetic algorithm by implementing in FORTRAN.
+- Increased the yield of Nylon 66 by 5% on implementing rotary kiln reactors.
+  
+
+
+Teaching Experience {data-icon=chalkboard-teacher}
+--------------------------------------------------------------------------------
+
+### Introduction to R Language for Beginners
+
+Teaching basic of R for data analytics as a freelancer
+
+Remote
+
+2021
+
+### Principles of Materials Lab.
+
+Laboratory assistant of MSE 304 course at UTK
+
+Knoxville, USA
+
+2014 - 2015
+
+### Process Design and Economic Analysis
+
+Teaching assistant of CBE 490 course at UTK
+
+Knoxville, USA
+
+2012
+
+### Chemical and Bioengineering Reactor Fundamentals
+
+Teaching assistant of CBE 450 course at UTK
+
+Knoxville, USA
+
+2011
+
+
+Education {data-icon=graduation-cap data-concise=true}
+--------------------------------------------------------------------------------
+
+### Sacred Heart University, Luxembourg
+
+MBA in Strategic management and Finance
+
+Luxembourg City, Luxembourg
+
+2018 - 2020
+
+Capstone: Develop business plan to market IoT trackers, CHAMP Cargosystems Luxembourg
+
+### University of Tenessee at Knoxville, USA
+
+Ph.D. in Chemical Engineering
+
+Knoxville, USA
+
+2010 - 2015
+
+Thesis: Symbiotic plasmonic nanomaterials: Synthesis and properties
+
+### Indian Institute of Technology Kanpur, India
+
+Dual degree in Chemical Engineering
+
+Kanpur, India
+
+2003 - 2008
+
+Thesis: Simulation and optimization of the solid state polymerization of Nylon’s in a rotary kiln
+
+
+Certifications {data-icon=certificate}
+--------------------------------------------------------------------------------
+
+### Dimensionality Reduction in R
+
+DataCamp
+
+N/A
+
+2020
+
+### Feature Engineering in R
+
+DataCamp
+
+N/A
+
+2020
+
+### Tableau 10 & 2019 for business intelligence
+
+Udemy
+
+N/A
+
+2020
+
+###	Machine learning 
+
+Stanford University @ Coursera
+
+N/A
+
+2020
+
+### SQL Fundamentals Track
+
+DataCamp
+
+N/A
+
+2019
+
+### Intermediate R 
+
+DataCamp
+
+N/A
+
+2018
+
+### Data Manipulation in R with dplyr 
+
+DataCamp
+
+N/A
+
+2018
+
